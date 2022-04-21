@@ -62,6 +62,7 @@ namespace StopYouTubeScammers
             this.textBoxFilter = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.AuthGoogle = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -353,8 +354,8 @@ namespace StopYouTubeScammers
             // 
             this.toolStripStatusLabel2.IsLink = true;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(63, 17);
-            this.toolStripStatusLabel2.Text = "H-educate";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(60, 17);
+            this.toolStripStatusLabel2.Text = "Developer";
             this.toolStripStatusLabel2.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
             // 
             // toolStripStatusLabel5
@@ -383,6 +384,7 @@ namespace StopYouTubeScammers
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.AuthGoogle);
             this.groupBox1.Controls.Add(this.button9);
             this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Controls.Add(this.button2);
@@ -419,6 +421,16 @@ namespace StopYouTubeScammers
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Moderation";
+            // 
+            // AuthGoogle
+            // 
+            this.AuthGoogle.Location = new System.Drawing.Point(855, 222);
+            this.AuthGoogle.Name = "AuthGoogle";
+            this.AuthGoogle.Size = new System.Drawing.Size(124, 23);
+            this.AuthGoogle.TabIndex = 50;
+            this.AuthGoogle.Text = "Authenticate First!";
+            this.AuthGoogle.UseVisualStyleBackColor = true;
+            this.AuthGoogle.Click += new System.EventHandler(this.AuthGoogle_ClickAsync);
             // 
             // button9
             // 
@@ -964,6 +976,7 @@ namespace StopYouTubeScammers
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ColumnHeader VideoId;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button AuthGoogle;
     }
 }
 

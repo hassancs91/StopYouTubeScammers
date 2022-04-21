@@ -6,10 +6,10 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>5109139_influencer_media_music_play_red_icon.ico</ApplicationIcon>
     <AssemblyName>Stop YouTube Scammers</AssemblyName>
-    <Company>H-educate</Company>
-    <Authors>H-educate</Authors>
+    <Company>LearnWithHasan</Company>
+    <Authors>Hasan Aboul Hasan</Authors>
     <Description>Stop YouTube Scammers is a free application that helps YouTubers filter and clean scam comments and protects their audience.</Description>
-    <Copyright>2022 H-educate</Copyright>
+    <Copyright>2022 LearnWithHasan.com</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

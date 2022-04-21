@@ -22,6 +22,12 @@ namespace StopYouTubeScammers
     public partial class Form1 : Form
     {
         #region Declaration
+
+        UserCredential credential = null;
+
+
+
+
         string _strChannelID = string.Empty;
         string _strAPIKey = string.Empty;
         string _strClientId = string.Empty;
@@ -72,7 +78,7 @@ namespace StopYouTubeScammers
                 {
                     listView1.EndUpdate();
                 }
-                
+
                 lblCommentCount.Text = totalComments.ToString();
             }
 
@@ -92,7 +98,7 @@ namespace StopYouTubeScammers
                     {
                         listView1.EndUpdate();
                     }
-                    
+
                     lblReplyCount.Text = totalReplies.ToString();
                     lblCommentCount.Text = totalComments.ToString();
                     //progressBarLoading.Value = //progressBarLoading.Value + 1;
@@ -236,8 +242,8 @@ namespace StopYouTubeScammers
             nextPageToken = searchListResponse.NextPageToken;
 
             // when user filter then check youtube filter data is less then equal to Maxresult if true then make flag true else continue
-            if(!string.IsNullOrEmpty(searchListRequest.SearchTerms))
-                if(searchListResponse.Items.Count <= 73)
+            if (!string.IsNullOrEmpty(searchListRequest.SearchTerms))
+                if (searchListResponse.Items.Count <= 73)
                     stopFlag = true;
 
             // Add each result to the appropriate list, and then display the lists of
@@ -258,7 +264,7 @@ namespace StopYouTubeScammers
                         item.SubItems.Add(searchResult.Snippet.TopLevelComment.Snippet.AuthorDisplayName);
                         item.SubItems.Add("");
                         item.SubItems.Add(searchResult.Snippet.TopLevelComment.Snippet.VideoId);
-                       
+
                         listView1.Items.Add(item);
                         totalComments++;
                     }
@@ -350,7 +356,7 @@ namespace StopYouTubeScammers
         {
             return "";
         }
-        private async void DeleteComment(string commentId,int itemIndex,string channelURL)
+        private async void DeleteComment(string commentId, int itemIndex, string channelURL)
         {
             try
             {
@@ -361,20 +367,11 @@ namespace StopYouTubeScammers
                     //Check If My Channel
                     if (!checkBoxDeleteMyComments.Checked)
                     {
-                        ClientSecrets _client = new ClientSecrets();
-                        _client.ClientId = _strClientId;
-                        _client.ClientSecret = _strClientSecret;
+                        //ClientSecrets _client = new ClientSecrets();
+                        //_client.ClientId = _strClientId;
+                        //_client.ClientSecret = _strClientSecret;
                         //string path = Path.Combine(Environment.CurrentDirectory, "client_secret1.json");
-                        UserCredential credential;
-                        credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                                _client,
-                                // This OAuth 2.0 access scope allows for read-only access to the authenticated 
-                                // user's account, but not other types of account access.
-                                new[] { YouTubeService.Scope.YoutubeForceSsl },
-                                "user",
-                                CancellationToken.None,
-                                new FileDataStore(this.GetType().ToString())
-                            );
+
 
                         var youtubeService = new YouTubeService(new BaseClientService.Initializer()
                         {
@@ -390,23 +387,11 @@ namespace StopYouTubeScammers
 
                         listView1.Items[itemIndex].Remove();
                     }
-                    else{
+                    else
+                    {
                         if (!channelURL.Trim().ToLower().Contains(txtChannelID.Text.Trim().ToLower()))
                         {
-                            ClientSecrets _client = new ClientSecrets();
-                            _client.ClientId = _strClientId;
-                            _client.ClientSecret = _strClientSecret;
-                            //string path = Path.Combine(Environment.CurrentDirectory, "client_secret1.json");
-                            UserCredential credential;
-                            credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                                    _client,
-                                    // This OAuth 2.0 access scope allows for read-only access to the authenticated 
-                                    // user's account, but not other types of account access.
-                                    new[] { YouTubeService.Scope.YoutubeForceSsl },
-                                    "user",
-                                    CancellationToken.None,
-                                    new FileDataStore(this.GetType().ToString())
-                                );
+
 
                             var youtubeService = new YouTubeService(new BaseClientService.Initializer()
                             {
@@ -416,9 +401,8 @@ namespace StopYouTubeScammers
                             var deleteCommentRequest = youtubeService.Comments.SetModerationStatus(commentId, CommentsResource.SetModerationStatusRequest.ModerationStatusEnum.Rejected);
 
 
-
                             //deleteCommentRequest = youtubeService.Comments.Delete(commentId);
-                           
+
                             deleteCommentRequest.AccessToken = credential.Token.AccessToken;
 
                             var deleteCommentResponse = deleteCommentRequest.Execute();
@@ -426,9 +410,9 @@ namespace StopYouTubeScammers
                             listView1.Items[itemIndex].Remove();
                         }
                     }
-                   
 
-              
+
+
                 }
             }
             catch (Exception ex)
@@ -782,7 +766,7 @@ namespace StopYouTubeScammers
                 }
             }
 
-      
+
         }
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -800,11 +784,11 @@ namespace StopYouTubeScammers
                         UseShellExecute = true
                     };
                     Process.Start(psi);
-                    
+
                 }
             }
 
-        
+
         }
 
 
@@ -836,7 +820,7 @@ namespace StopYouTubeScammers
         #region StatusStrip Links
         private void toolStripStatusLabel2_Click(object sender, EventArgs e)
         {
-            Process.Start("http://h-educate.com/");
+            Process.Start("https://learnwithhasan.com/");
         }
 
         private void toolStripStatusLabel5_Click(object sender, EventArgs e)
@@ -907,6 +891,9 @@ namespace StopYouTubeScammers
         {
             if (checkBoxDelete.Checked)
             {
+               
+
+
                 checkBoxDeleteMyComments.Enabled = true;
             }
             else
@@ -969,8 +956,26 @@ namespace StopYouTubeScammers
             export2File(listView1, "|");
         }
 
-        private void label15_Click(object sender, EventArgs e)
+       
+
+        private async void AuthGoogle_ClickAsync(object sender, EventArgs e)
         {
-                    }
+            _strClientId = txtClientId.Text.Trim();
+            _strClientSecret = txtClientSecret.Text.Trim();
+
+            ClientSecrets _client = new ClientSecrets();
+            _client.ClientId = _strClientId;
+            _client.ClientSecret = _strClientSecret;
+            credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                _client,
+                // This OAuth 2.0 access scope allows for read-only access to the authenticated 
+                // user's account, but not other types of account access.
+                new[] { YouTubeService.Scope.YoutubeForceSsl
+                },
+                "user",
+                CancellationToken.None,
+                new FileDataStore(this.GetType().ToString())
+            );
+        }
     }
 }
